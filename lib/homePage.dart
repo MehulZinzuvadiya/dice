@@ -19,7 +19,7 @@ class _DicePageState extends State<DicePage> {
     "assets/images/dice (5).png",
     "assets/images/dice (6).png",
   ];
-  int i = 0;
+  int i = 0,sum=0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,26 +29,52 @@ class _DicePageState extends State<DicePage> {
         title: Text("DiceApp"),
         centerTitle: true,
         backgroundColor: Colors.amber,
-        leading: Icon(Icons.menu),
+        leading: Image.asset(
+          "assets/images/dice (6).png",
+        ),
         elevation: 0,
         actions: [
-          Icon(Icons.search),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(Icons.search),
+          ),
+
         ],
       ),
-      body: Center(
-        child: InkWell(
-            onTap: () {
-              var R = Random();
-              setState(() {
-                i = R.nextInt(6);
-                print("$i");
-              });
-            },
-            child: Image.asset(
-              l1[i],
-              height: 100,
-              width: 100,
-            )),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: InkWell(
+                onTap: () {
+                  var R = Random();
+                  setState(() {
+                    i = R.nextInt(6);
+                    print("$i");
+                    sum=sum+i+1;
+                    print("$sum");
+                  });
+                },
+                child: Image.asset(
+                  l1[i],
+                  height: 100,
+                  width: 100,
+                )),
+
+          ),
+          SizedBox(height: 20,),
+          Container(
+            alignment: Alignment.center,
+            height: 40,
+            width: 50,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text("$sum",
+                style: TextStyle(color: Colors.black, fontSize: 18)),
+          ),
+        ],
       ),
     ));
   }
